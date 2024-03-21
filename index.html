@@ -65,6 +65,7 @@
     </div>
 
     <script src="./src/basicOperation.js"></script>
+    <script src="./src/advancedOperation.js"></script>
     <script>
       function addNumbers() {
         var num1 = parseFloat(document.getElementById("num1").value);
@@ -97,6 +98,19 @@
           document.getElementById("result").innerHTML =
             "Result: " + divide(num1, num2);
         }
+      }
+      function power() {
+        var num1 = parseFloat(document.getElementById("num1").value);
+        var num2 = parseFloat(document.getElementById("num2").value);
+        document.getElementById("result").innerHTML =
+          "Result: " + pow(num1, num2);
+      }
+
+      function modulus() {
+        var num1 = parseFloat(document.getElementById("num1").value);
+        var num2 = parseFloat(document.getElementById("num2").value);
+        document.getElementById("result").innerHTML =
+          "Result: " + modulo(num1, num2);
       }
     </script>
   </body>
