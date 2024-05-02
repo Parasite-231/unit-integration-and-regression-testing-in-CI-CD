@@ -17,7 +17,7 @@ function divide (a,b){
 console.log(add(2, 3));
 console.log(add(2, 44));
 console.log(add(2, 233));
-
+console.log(add(2, 233));
 module.exports = {
     add,
     subtract,
