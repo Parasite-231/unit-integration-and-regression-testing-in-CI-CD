@@ -1,3 +1,43 @@
+# name: All Tests
+
+# on:
+#   push:
+#     branches:
+#       - "*"
+
+# jobs:
+#   tests:
+#     runs-on: windows-latest
+
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Use Node.js 16.x
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: 16.x
+#       - name: Install dependencies
+#         run: npm ci
+#       - name: Run tests
+#         run: npm test
+
+#   merge:
+#     runs-on: ubuntu-latest
+#     needs: tests
+#     if: ${{ needs.tests.result == 'success' }}
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Merge changes
+#         run: |
+#           git config user.name Parasite-231
+#           git config user.email muktadir@iut-dhaka.edu
+#           git checkout main
+#           git pull origin main
+#           git merge --no-ff ${{ github.sha }}
+#           git push origin main
+
 name: All Tests
 
 on:
@@ -29,11 +69,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Merge changes
+      - name: Set Git user
         run: |
           git config user.name Parasite-231
           git config user.email muktadir@iut-dhaka.edu
-          git checkout main
-          git pull origin main
+
+      - name: Determine default branch
+        run: echo "Default branch is $DEFAULT_BRANCH"
+        id: default_branch
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+
+      - name: Merge changes
+        run: |
+          git checkout ${{ steps.default_branch.outputs.DEFAULT_BRANCH }}
+          git pull origin ${{ steps.default_branch.outputs.DEFAULT_BRANCH }}
           git merge --no-ff ${{ github.sha }}
-          git push origin main
+          git push origin ${{ steps.default_branch.outputs.DEFAULT_BRANCH }}
