@@ -3,7 +3,7 @@ name: All Tests
 on:
   push:
     branches:
-      - "*"
+      - main
 
 jobs:
   tests:
@@ -31,21 +31,15 @@ jobs:
 
       - name: Set Git user
         run: |
-          git config user.name Parasite-231
-          git config user.email muktadir@iut-dhaka.edu
+          git config user.name "Parasite-231"
+          git config user.email "muktadir@iut-dhaka.edu"
 
-      - name: Determine default branch
-        run: echo "Default branch is $DEFAULT_BRANCH"
-        id: default_branch
-        env:
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-
-      - name: Merge changes
+      - name: Merge changes into main
         run: |
-          git checkout ${{ steps.default_branch.outputs.DEFAULT_BRANCH }}
-          git pull origin ${{ steps.default_branch.outputs.DEFAULT_BRANCH }}
+          git checkout main
+          git pull origin main
           git merge --no-ff ${{ github.sha }}
-          git push origin ${{ steps.default_branch.outputs.DEFAULT_BRANCH }}
+          git push origin main
 
       - name: Show git status
         run: |
