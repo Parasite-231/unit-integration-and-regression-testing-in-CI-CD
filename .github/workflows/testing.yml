@@ -7,17 +7,11 @@ on:
 
 jobs:
   merge:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Merge changes
-        run: |
-          git config user.name "Parasite-231"
-          git config user.email "muktadir@iut-dhaka.edu"
-          git checkout main
-          git pull origin main
-          git merge --no-ff $(basename ${{ github.ref }})
-          git push origin main
+        uses: tzkhan/github-action-merge@v0.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
