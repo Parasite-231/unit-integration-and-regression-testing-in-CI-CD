@@ -7,7 +7,7 @@ on:
 
 jobs:
   merge:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -18,5 +18,6 @@ jobs:
           git config user.name "Parasite-231"
           git config user.email "muktadir@iut-dhaka.edu"
           git checkout main
-          git merge --no-ff ${{ github.ref }}
+          git pull origin main
+          git merge --no-ff $(basename ${{ github.ref }})
           git push origin main
